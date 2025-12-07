@@ -1,0 +1,17 @@
+Result 1:
+Source DB: combo_logs_29_08_2025
+Login: +40 7** *** ***
+Password: ******
+URL: https://www.jerryspizza.ro/account/login
+
+Result 2:
+Source DB: stealer_logs_01_07_2025
+Login: use***@example.com
+Password: ******
+URL: jerryspizza.ro
+
+Result 3:
+Source DB: combo_logs_15_09_2025
+Login: 0740******
+Password: ******
+URL: https://www.jerryspizza.ro/account/login
