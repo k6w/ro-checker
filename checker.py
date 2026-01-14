@@ -12,6 +12,7 @@ import time
 
 from plugins import JerrysPizzaPlugin, PizzaHutPlugin
 from plugins.base import WebsitePlugin
+from combo_parsers import parse_combo_file
 
 class MultiSiteChecker:
     def __init__(self, plugin: WebsitePlugin):
@@ -32,29 +33,21 @@ class MultiSiteChecker:
     
     def parse_combo_file(self, filepath: str) -> List[Dict[str, str]]:
         """Parse the combo file and extract login credentials"""
-        combos = []
-        
         with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
         
-        # Pattern to match Result entries
-        pattern = r'Result \d+:.*?Login:\s*(.+?)\s*Password:\s*(.+?)\s*URL:'
-        matches = re.findall(pattern, content, re.DOTALL)
+        # Use the modular parser system
+        combos = parse_combo_file(content)
         
-        for login, password in matches:
-            login = login.strip()
-            password = password.strip()
-            
-            # Skip invalid entries
-            if not login or not password or len(login) < 3 or len(password) < 3:
-                continue
-            
-            # Use plugin to parse credentials
-            combo = self.plugin.parse_combo_line(login, password)
-            if combo:
-                combos.append(combo)
+        # Filter and normalize using plugin
+        filtered_combos = []
+        for combo in combos:
+            # Use plugin to parse/normalize credentials
+            normalized = self.plugin.parse_combo_line(combo['login'], combo['password'])
+            if normalized:
+                filtered_combos.append(normalized)
         
-        return combos
+        return filtered_combos
     
     async def append_to_success_file(self, account_data: Dict):
         """Append a valid account to success.json in real-time, keeping it sorted"""

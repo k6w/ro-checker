@@ -56,21 +56,52 @@ Access the dashboard at `http://localhost:5000` to view:
 
 ## 📝 Input Format
 
-The checker is designed to parse complex log formats automatically. It looks for `Login:` and `Password:` patterns.
+The checker supports multiple combo file formats automatically. It detects the format and parses accordingly.
 
-**Example `combos.txt`:**
+### Supported Formats
+
+**1. Result Format (Original):**
 ```text
 Result 1:
 Source DB: combo_logs_29_08_2025
 Login: +40 7** *** ***
 Password: ******
 URL: https://www.example.com/login
+```
 
-Result 2:
-Source DB: stealer_logs_01_07_2025
-Login: use***@gmail.com
-Password: ******
-URL: example.com
+**2. OSINTCAT Format:**
+```text
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 333:779:555:petrerobert1911
+==================
+```
+
+**3. Simple Colon Format:**
+```text
+user@example.com:password123
++40712345678:secretpass
+```
+
+### Adding Custom Formats
+
+To add support for new combo formats, edit `combo_parsers.py`:
+
+1. Create a new class inheriting from `ComboParser`
+2. Implement `can_parse()` to detect your format
+3. Implement `parse()` to extract login/password
+4. Add your parser to the `PARSERS` list
+
+**Example:**
+```python
+class MyCustomFormatParser(ComboParser):
+    def can_parse(self, content: str) -> bool:
+        return 'MY_FORMAT_MARKER' in content
+    
+    def parse(self, content: str) -> List[Dict[str, str]]:
+        # Your parsing logic here
+        pass
 ```
 
 ## 📊 Example Output
@@ -104,11 +135,14 @@ ro-checker/
 ├── main.py           # Central TUI service manager
 ├── checker.py        # Core async checking engine
 ├── server.py         # Flask web server & WebSocket handler
+├── combo_parsers.py  # Modular combo file format parsers
 ├── plugins/          # Site-specific modules
 │   ├── base.py       # Abstract base class for plugins
 │   ├── jerryspizza.py
 │   └── pizzahut.py
-└── templates/        # Web dashboard templates
+├── templates/        # Web dashboard templates
+├── example_combos.txt # Sample combo files in different formats
+└── requirements.txt  # Python dependencies
 ```
 
 ## ⚠️ Disclaimer

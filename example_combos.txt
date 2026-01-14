@@ -15,3 +15,207 @@ Source DB: combo_logs_15_09_2025
 Login: 0740******
 Password: ******
 URL: https://www.jerryspizza.ro/account/login
+
+==================
+SEARCH PERFORMED BY OSINTCAT
+QUERY: undefined
+NORMAL SCAN
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 333:779:555:petrerobert1911
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 333:779:555:petrerobert1911
+==================
+
+==================
+DOMAIN: http://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 784:992:857:miliardar10
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro
+EMAIL: +40
+PASS: 724:540:622:NSa1969###
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro/account/login
+EMAIL: +40
+PASS: 725:911:925:Moto1234!
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro/account/login
+EMAIL: +40
+PASS: 725:911:925:Moto1234!
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro/account/register
+EMAIL: +40
+PASS: Parolapizza1!
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 756:756:955:tweety@72
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 757:512:921:Constantin_39
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 760:232:755:triburile1
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 744:346:007:Creative1992!
+==================
+
+==================
+DOMAIN: https://jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 770:447:940:WGUATDCA2U3fbD3
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro
+EMAIL: +40
+PASS: 770:627:832:lucian10
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/login
+EMAIL: +40
+PASS: 757:797:798:anamari1123
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/login
+EMAIL: +40
+PASS: 757:797:798:anamari1123
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/login
+EMAIL: +40
+PASS: 725:911
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/login
+EMAIL: +40
+PASS: 757:797:798:anamari1123
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 723:252:395:CV4u3Cxx
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 726:274:981:z3K9T6QPuALMw3V
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 748:023:990:1Noiembrie
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 773:323:179:jerry_remus$$
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 726:274:981:z3K9T6QPuALMw3V
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 764:320:494:Parolapizza1!
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 765:507:470:Mateinadia2009
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 074:097:132:dulap50&*A
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 726
+==================
+
+==================
+DOMAIN: https://www.jerryspizza.ro/account/register
+EMAIL: +40
+PASS: 773:960:731:zara.123
+==================
+
+==================
+DOMAIN: www.jerryspizza.ro
+EMAIL: bengoasa_rau@yahoo.com
+PASS: Parola.0757
+==================
+
+==================
+DOMAIN: www.jerryspizza.ro
+EMAIL: bengoasa_rau@yahoo.com
+PASS: Parola.0757
+==================
+
+==================
+DOMAIN: www.jerryspizza.ro
+EMAIL: bengoasa_rau@yahoo.com
+PASS: Parola.0757
+==================
+
+==================
+DOMAIN: www.jerryspizza.ro
+EMAIL: bengoasa_rau@yahoo.com
+PASS: Parola.0757
+==================
+
+==================
+DOMAIN: www.jerryspizza.ro
+EMAIL: bengoasa_rau@yahoo.com
+PASS: Parola.0757
+==================
+
+==================
+DOMAIN: www.jerryspizza.ro/account/register
+EMAIL: bengoasa_rau@yahoo.com
+PASS: Parola
+==================
