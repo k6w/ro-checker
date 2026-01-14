@@ -7,7 +7,7 @@ from pathlib import Path
 import time
 from threading import Thread
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'))
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
