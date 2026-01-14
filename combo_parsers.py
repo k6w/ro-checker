@@ -35,7 +35,7 @@ class ResultFormatParser(ComboParser):
             password = password.strip()
 
             # Skip invalid entries
-            if not login or not password or len(login) < 3 or len(password) < 3:
+            if not login or len(login.strip()) < 3 or len(password.strip()) < 1:
                 continue
 
             combos.append({
@@ -87,15 +87,25 @@ class OsintcatFormatParser(ComboParser):
 
                 if self._is_phone_prefix(email) and ':' in password:
                     pass_parts = password.rsplit(':', 1)
-                    if len(pass_parts) == 2 and pass_parts[0].replace(':', '').isdigit():
-                        login = email + pass_parts[0].replace(':', '')
+                    if len(pass_parts) == 2 and pass_parts[0].replace(':', '').replace(' ', '').strip().isdigit():
+                        login = email + pass_parts[0].replace(':', '').replace(' ', '')
                         password = pass_parts[1]
                     else:
                         login = email
                 else:
                     login = email
 
-                if not login or not password or len(login) < 3 or len(password) < 3:
+                # Additional check for space-separated numbers
+                if login == email and re.match(r'^[\d\s]+\s+.+$', password):
+                    match = re.match(r'^([\d\s]+)\s+(.+)$', password)
+                    if match:
+                        num_part = match.group(1).replace(' ', '')
+                        pass_part = match.group(2)
+                        if num_part.isdigit():
+                            login = email + num_part
+                            password = pass_part
+
+                if not login or len(login.strip()) < 3 or len(password.strip()) < 1:
                     continue
 
                 combos.append({
@@ -135,7 +145,7 @@ class SimpleColonFormatParser(ComboParser):
                 login = login.strip()
                 password = password.strip()
 
-                if login and password and len(login) >= 3 and len(password) >= 3:
+                if login and len(login.strip()) >= 3 and len(password.strip()) >= 1:
                     combos.append({
                         'login': login,
                         'password': password,
