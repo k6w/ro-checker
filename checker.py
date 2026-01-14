@@ -39,9 +39,18 @@ class MultiSiteChecker:
         # Use the modular parser system
         combos = parse_combo_file(content)
         
+        # Remove duplicates at combo level
+        seen = set()
+        unique_combos = []
+        for combo in combos:
+            combo_key = (combo['login'], combo['password'])
+            if combo_key not in seen:
+                seen.add(combo_key)
+                unique_combos.append(combo)
+        
         # Filter and normalize using plugin
         filtered_combos = []
-        for combo in combos:
+        for combo in unique_combos:
             # Use plugin to parse/normalize credentials
             normalized = self.plugin.parse_combo_line(combo['login'], combo['password'])
             if normalized:
@@ -62,14 +71,22 @@ class MultiSiteChecker:
                 else:
                     accounts = []
                 
-                accounts.append(account_data)
+                # Check for duplicates before adding
+                is_duplicate = any(
+                    acc.get('login') == account_data.get('login') and 
+                    acc.get('password') == account_data.get('password')
+                    for acc in accounts
+                )
                 
-                # Sort by balance/points
-                balance_key = self.plugin.get_balance_key()
-                accounts.sort(key=lambda x: x.get(balance_key, 0), reverse=True)
-                
-                with open(self.success_file, 'w', encoding='utf-8') as f:
-                    json.dump(accounts, f, indent=2, ensure_ascii=False)
+                if not is_duplicate:
+                    accounts.append(account_data)
+                    
+                    # Sort by balance/points
+                    balance_key = self.plugin.get_balance_key()
+                    accounts.sort(key=lambda x: x.get(balance_key, 0), reverse=True)
+                    
+                    with open(self.success_file, 'w', encoding='utf-8') as f:
+                        json.dump(accounts, f, indent=2, ensure_ascii=False)
             except Exception as e:
                 print(f"\n[!] Error writing to success file: {e}")
     
@@ -92,13 +109,22 @@ class MultiSiteChecker:
                 
                 if result:
                     async with self.lock:
-                        self.valid_accounts.append(result)
-                    
-                    # Save immediately
-                    await self.append_to_success_file(result)
-                    
-                    display = self.plugin.format_account_display(result)
-                    print(f"\r[✓] Valid: {display}", flush=True)
+                        # Check for duplicates before adding
+                        is_duplicate = any(
+                            acc.get('login') == result.get('login') and 
+                            acc.get('password') == result.get('password')
+                            for acc in self.valid_accounts
+                        )
+                        
+                        if not is_duplicate:
+                            self.valid_accounts.append(result)
+                            # Save immediately
+                            await self.append_to_success_file(result)
+                            
+                            display = self.plugin.format_account_display(result)
+                            print(f"\r[✓] Valid: {display}", flush=True)
+                        else:
+                            print(f"\r[⚠] Duplicate: {original_login}", flush=True)
                 else:
                     print(f"\r[✗] Invalid: {original_login}", flush=True)
                 

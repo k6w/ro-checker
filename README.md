@@ -33,20 +33,100 @@ A high-performance, modular multi-site account checker designed for speed and ef
 
 ## 💻 Usage
 
-### 1. Prepare your Combo File
-The checker supports advanced combo formats often found in logs. See the [Input Format](#-input-format) section below.
+### Quick Start
 
-### 2. Run the Application
-Start the main service manager:
+1. **Prepare your combo file** (see [Input Format](#-input-format) below)
+2. **Run the application** in your preferred mode
+
+### Interface Options
+
+ro-checker supports multiple interface modes for different use cases:
+
+#### 🎨 **TUI Mode (Terminal User Interface) - Default**
+The full-featured terminal interface for managing both checker and server simultaneously.
+
 ```bash
+# Start TUI mode (default)
 python main.py
+
+# Or explicitly
+python main.py tui
 ```
 
-### 3. Control via TUI
-The Terminal User Interface allows you to:
-- **Start/Stop Services**: Toggle the Checker and Web Server independently.
-- **Monitor Output**: View live logs from both services side-by-side.
-- **Input Management**: Send commands directly to the running checker process.
+**TUI Features:**
+- **Dual-Panel Display**: Monitor checker and server outputs side-by-side
+- **Live Controls**: Start/stop services with keyboard shortcuts
+- **Real-time Stats**: View checking progress, rates, and valid hits
+- **Interactive Input**: Send commands to running processes
+- **Service Management**: Control checker and web server independently
+
+**TUI Controls:**
+- `←/→` - Switch between checker/server panels
+- `S` - Start selected service
+- `X` - Stop selected service  
+- `R` - Restart selected service
+- `I` - Send input to selected service
+- `Q` - Quit application
+
+**TUI Layout:**
+```
+┌─ Service Manager ──────────────────┐  ┌─ Status & Controls ───────┐
+│ Checker: ● RUNNING   Server: ○ STOPPED │  │ Status: Running           │
+│                                     │  │ Valid: 12 | Rate: 45.2/s │
+│ [Live checker output here...]      │  │ ←/→ Select | S Start | ... │
+│                                     │  └───────────────────────────┘
+└─────────────────────────────────────┘
+```
+
+#### 💻 **CLI Mode - Individual Components**
+Run checker or server independently for automation, scripting, or when TUI isn't needed.
+
+```bash
+# Run only the checker
+python main.py checker
+
+# Run only the web server
+python main.py server
+```
+
+**CLI Advantages:**
+- **No TUI Dependencies**: Works in any terminal environment
+- **Scripting Friendly**: Easy to integrate into automation workflows
+- **Resource Efficient**: Only loads what you need
+- **Background Compatible**: Can run in background processes
+- **Stable**: No interactive UI to cause issues
+
+**CLI Output:**
+```bash
+[*] Starting checker in CLI mode...
+================================================================================
+MULTI-SITE ACCOUNT CHECKER
+================================================================================
+
+[*] Select website to check:
+  1. Jerry's Pizza
+  2. Pizza Hut
+
+Enter choice (1 or 2): 1
+[+] Selected: Jerry's Pizza
+[*] Please select the combo file...
+[+] Selected file: combos.txt
+[*] Parsing combo file...
+[+] Found 1001 combos to check
+[*] Starting Jerry's Pizza checker with 50 workers
+[*] Total accounts to check: 1001
+
+[✓] Valid: +40773960731 | Balance: 0 | Orders: 7 | Total: $846.82
+Progress: 150/1001 | Valid: 12 | Rate: 45.2/s
+```
+
+### When to Use Each Mode
+
+| Mode | Best For | Advantages | Disadvantages |
+|------|----------|------------|---------------|
+| **TUI** | Interactive management, monitoring multiple services | Live dual-panel view, real-time controls, comprehensive monitoring | Requires compatible terminal, can be resource-intensive |
+| **CLI Checker** | Automation, scripting, headless operation | Lightweight, stable, scriptable, background-friendly | No live monitoring, manual service management |
+| **CLI Server** | Dedicated web dashboard hosting | Isolated server operation, resource-efficient | No checker integration |
 
 ### 4. Web Dashboard
 Access the dashboard at `http://localhost:5000` to view:
@@ -132,7 +212,7 @@ Progress: 150/976 | Valid: 12 | Rate: 45.2/s
 
 ```
 ro-checker/
-├── main.py           # Central TUI service manager
+├── main.py           # Main entry point with TUI and CLI modes
 ├── checker.py        # Core async checking engine
 ├── server.py         # Flask web server & WebSocket handler
 ├── combo_parsers.py  # Modular combo file format parsers
@@ -144,6 +224,13 @@ ro-checker/
 ├── example_combos.txt # Sample combo files in different formats
 └── requirements.txt  # Python dependencies
 ```
+
+**Main Components:**
+- **`main.py`**: Entry point supporting both TUI and CLI modes
+- **`checker.py`**: Async account validation engine with multi-threading
+- **`server.py`**: Real-time web dashboard with WebSocket updates
+- **`combo_parsers.py`**: Extensible parser system for multiple combo formats
+- **`plugins/`**: Modular website-specific implementations
 
 ## ⚠️ Disclaimer
 

@@ -105,6 +105,8 @@ class ServiceManager:
             
             self.checker_running = True
             self.checker_output.clear()
+            self.checker_needs_input = False
+            self.current_input_prompt = ""  # Clear any old prompts
             self.checker_stats = {'checked': 0, 'valid': 0, 'rate': 0.0}
             
             # Start threads
@@ -150,6 +152,7 @@ class ServiceManager:
             
             self.checker_running = False
             self.checker_needs_input = False
+            self.current_input_prompt = ""  # Clear prompt when stopping
             self.checker_stats = {'checked': 0, 'valid': 0, 'rate': 0.0}
     
     def stop_server(self):
@@ -333,6 +336,12 @@ class ServiceManager:
         else:
             stats_text = "Waiting for checker..."
 
+        # Input prompt line (if needed)
+        if self.checker_needs_input and self.current_input_prompt:
+            prompt_text = f"[bold yellow]INPUT NEEDED:[/bold yellow] {self.current_input_prompt}"
+        else:
+            prompt_text = ""
+
         # Controls Line
         controls = "[cyan]←/→[/cyan] Select | [green]S[/green] Start | [yellow]X[/yellow] Stop | [magenta]R[/magenta] Restart | [blue]I[/blue] Input | [red]Q[/red] Quit"
         
@@ -340,6 +349,8 @@ class ServiceManager:
         grid.add_column(ratio=1)
         grid.add_row(status_text)
         grid.add_row(stats_text)
+        if prompt_text:
+            grid.add_row(prompt_text)
         grid.add_row(controls)
         
         return Panel(grid, title="Status & Controls", border_style="white", box=box.ROUNDED)
