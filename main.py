@@ -5,6 +5,7 @@ import threading
 import queue
 from collections import deque
 import shutil
+import argparse
 
 # Rich imports
 from rich.console import Console
@@ -423,13 +424,43 @@ class ServiceManager:
         print("Services stopped. Goodbye!")
 
 def main():
-    try:
-        manager = ServiceManager()
-        manager.run()
-    except KeyboardInterrupt:
-        pass
-    except Exception as e:
-        print(f"Error: {e}")
+    parser = argparse.ArgumentParser(description='Multi-Site Account Checker')
+    parser.add_argument('mode', nargs='?', default='tui', 
+                       choices=['tui', 'checker', 'server'],
+                       help='Mode to run: tui (default), checker, or server')
+    
+    args = parser.parse_args()
+    
+    if args.mode == 'checker':
+        # Run checker directly
+        print("[*] Starting checker in CLI mode...")
+        try:
+            import checker
+            import asyncio
+            asyncio.run(checker.main())
+        except KeyboardInterrupt:
+            print("\n[*] Checker stopped by user")
+        except Exception as e:
+            print(f"[!] Error running checker: {e}")
+            
+    elif args.mode == 'server':
+        # Run server as subprocess
+        print("[*] Starting server in CLI mode...")
+        try:
+            subprocess.run([sys.executable, 'server.py'])
+        except KeyboardInterrupt:
+            print("\n[*] Server stopped by user")
+        except Exception as e:
+            print(f"[!] Error running server: {e}")
+            
+    else:  # tui mode (default)
+        try:
+            manager = ServiceManager()
+            manager.run()
+        except KeyboardInterrupt:
+            pass
+        except Exception as e:
+            print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()
